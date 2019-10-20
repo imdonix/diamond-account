@@ -1,5 +1,5 @@
 <?php
-include 'database.php';
+include 'lib/database.php';
 
 $GLOBALS['API_version'] = "0.3";
 $GLOBALS['commands'] = array();

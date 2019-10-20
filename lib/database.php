@@ -5,11 +5,17 @@ $server_username = "root";
 $server_password = "";
 $server_database = "diamond";
 
-$server_url = "q7cxv1zwcdlw7699.chr7pe7iynqr.eu-west-1.rds.amazonaws.com";
-$server_username = "s0gj9ytleew4g7ax";
-$server_password = "r5r187ankudkbk9a";
-$server_database = "jamyk9cr08h9qo69";
+//Heroku databasess
+if(getenv('JAWSDB_URL'))
+{
+	$url = getenv('JAWSDB_URL');
+	$dbparts = parse_url($url);
 
+	$server_url = $dbparts['host'];
+	$server_username = $dbparts['user'];
+	$server_password = $dbparts['pass'];
+	$server_database = ltrim($dbparts['path'], '/');
+}
 
 $GLOBALS['database'] = mysqli_connect($server_url, $server_username, $server_password ,$server_database);
 Check();
