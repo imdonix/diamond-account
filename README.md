@@ -1,10 +1,12 @@
 **Diamond Account Documentation**
 
-## MasterKey()
+Diamond account is a account system for Diamond Cage Studio's games.
+
+## MasterKey
 
 e268443e43d93dab7ebef303bbe9642f
 
-## Errors()
+## Errors
 
 E0 = database not aviable
 
@@ -30,11 +32,11 @@ E74 = (Register) encryped password
 
 E9 = function has no result
 
-## Output()
+## Output
 
 [Text/]
 (data)&(data)@(sidedata)&(data)... 
 
-## Endpoint()
+## Endpoint
 
 https://diamond-account.herokuapp.com/api.php
