@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="web/fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="web/css/style.css">
     <!-- This templates was made by Colorlib (https://colorlib.com) -->
-</head>
 <body>
     <div class="main">
         <section class="signup">
@@ -49,4 +48,3 @@
 	
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
-</html>
