@@ -5,46 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="web/fonts/material-icon/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="web/css/style.css">
-    <!-- This templates was made by Colorlib (https://colorlib.com) -->
+    <link href="/web/style.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
 <body>
-    <div class="main">
-        <section class="signup">
-            <div class="container">
-                <div class="signup-content">
-                    <div class="signup-form">
-                        <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="register-form">
-                            <div class="form-group">
-                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your username"/>
-                            </div>
-							<div class="form-group">
-                                <label for="igname"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your ingame name"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+   <div class="container">
+      <div class="col-md-6 mx-auto text-center">
+         <div class="header-title">
+            <h1 class="wv-heading--title">
+               Diamond account
+            </h1>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-4 mx-auto">
+            <div class="myform form ">
+               <form action="" method="post" name="login">
+                  <div class="form-group">
+                     <input type="text" name="username"  class="form-control my-input" id="username" placeholder="Username">
+                  </div>
+                  <div class="form-group">
+                     <input type="text" name="igname"  class="form-control my-input" id="igname" placeholder="IG name">
+                  </div>
+                  <div class="form-group">
+                     <input type="email" name="email"  class="form-control my-input" id="email" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                     <input type="password" min="0" name="pass" id="pass"  class="form-control my-input" placeholder="Password">
+                  </div>
+                  <div class="text-center ">
+                     <button type="submit" class=" btn btn-block send-button tx-tfm">Sing up</button>
+                  </div>
+                  <div class="col-md-12 ">
+                     <div class="login-or">
+                        <hr class="hr-or">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <a class="btn btn-block g-button" href="#">
+                     <i class="fa fa-google"></i> Sign up with Google
+                     </a>
+                  </div>
+               </form>
             </div>
-        </section>
-	</div>
-	
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+         </div>
+      </div>
+   </div>
 </body>
