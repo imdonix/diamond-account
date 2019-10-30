@@ -1,0 +1,124 @@
+
+  ==== Diamond account documentation ====
+
+  ----  1. Overall ----
+
+-- About --
+
+Diamond account is an account system created by Diamond Cage Studios.
+The project goal to create a unified account system for out indie games.
+
+-- Use --
+
+Anyone can use our account system for their indie game project. Write us a mail if you are interested!
+
+
+--Database tables --
+
+-User [ id | name | username | password | email | lastgame | invited | loginkey ]
+* name, username: engabc & number [varchar 20]
+* pass: hash MD5 [varchar 32]
+* lastgame: that game what this player played, set when login (game/id) (-1 null)
+* invited : that player who invited to play (player/id) (-1 null)
+-Game [ id | name | apikey | reqcounter | verison | filelink | ismobilegame ]
+-Friends [ id | pfrom(id) | pto(id) | accepted(bool) ]
+
+
+-- MasterKey (only for login/register)--
+
+e268443e43d93dab7ebef303bbe9642f
+
+-- Encryption --
+
+    Only the password is encryped in the database with a simple MD5 encryption
+
+-- Errors --
+
+- E0 = database not aviable
+- E1 = bad commad | Non GET type request
+- E2 = bad arguments
+- E3 = bad apikey
+- E4 = bad loginkey
+- E5 = wrong pass/username
+- E6 = Unable to handle friend request
+- E701 = (Register) username does not meet the requirements
+- E702 = (Register) ingamename does not meet the requirements
+- E703 = (Register) email does not meet the requirements
+- E711 = (Register) username already exist
+- E712 = (Register) ingamename already exist
+- E713 = (Register) email already exist
+- E74 = (Register) encryped password
+- E9 = function has no result
+
+
+-- Output --
+
+[Text/] (data)&(data)@(sidedata)&(data)... 
+
+
+-- Endpoint --
+
+https://diamond-account.herokuapp.com/api.php
+
+  ----  2. The API ----
+
+
+ --- Descriptions ---
+
+<Name for the endpoint>
+[ <accespoint with the arguments> ]
+Input: <Input fileds>
+Out: <Output fild>
+
+ --- Core ---
+
+
+-- Login --
+
+[ /api.php?type=login&un=(username)&ps=(password)&apikey=(apikey) ]
+Input: Username, Password, APIkey
+Out: (loginkey) [e268443ee268443ee268443ee268443e]
+
+
+-- Register --
+[ /api.php?type=register&un=(username)&ig=(ingamename)&ps=(password)&email=(email)&apikey=(apikey)&ref={invitedbyID} ]
+Input: Username, InGamename, Email, Password(RAW), APIkey, InvitedByID[optional]
+Password = ABC + 1-9
+Out: (loginkey) [e268443ee268443ee268443ee268443e]
+
+
+-- API info --
+[/api.php?type=api&apikey=(apikey) ]
+Input: APIkey
+Out: (api version) [0.1]
+
+
+-- Own Account info --
+[/api.php?type=info&loginkey=(loginkey)&apikey=(apikey) ]
+Input: Loginkey, APIkey
+Out: (id)&(name)&(username)&(lastgame)&(invited) [1&test1&test1&4&2]
+
+
+-- Find Account info by ID --
+[/api.php?type=findbyid&id=(id)&apikey=(apikey) ]
+Input: ID(Player), APIkey
+Out: (id)&(name)&(username)&(lastgame)&(invited) [1&test1&test1&4&2]
+
+
+-- Find Account info by Name --
+[/api.php?type=findbyname&name=(id)&loginkey=(loginkey)&apikey=(apikey) ]
+Input: name(Player), APIkey
+Out:(id)&(name)&(username)&(lastgame)&(invited) [1&test1&test1&4&2]
+
+ --- Game ---
+
+-- Get all game --
+[/api.php?type=games&apikey=(apikey) ]
+Input: APIkey
+Out: [text/] (game/id)&(game/id)&(game/id)
+
+
+-- Game info --
+[/api.php?type=game&id=(id)&apikey=(apikey) ]
+Input: gameid, APIkey
+Out: [text/] (game/id)&(game/name)&(game/reqcounter)

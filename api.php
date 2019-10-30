@@ -1,20 +1,23 @@
 <?php
 include 'lib/database.php';
+include 'lib/regexs.php';
 
-$GLOBALS['API_version'] = "0.3";
+$GLOBALS['API_version'] = "0.4";
 $GLOBALS['commands'] = array();
 $GLOBALS['expgain'] = array(10, 35, 50, 100);
 $GLOBALS['masterkey'] = "e268443e43d93dab7ebef303bbe9642f";
 
 //Core
 AddCommand("login", "un,ps", 				"FunctionLogin");
-AddCommand("register", "un,ig,ps,email", 	"FunctionRegister");
+AddCommand("register", "un,ig,ps,email", 	"FunctionRegister"); //optional invited
 AddCommand("api", 	"", 					"FunctionAPI");
-AddCommand("game", 	"id", 					"FunctionGameInfo");
-AddCommand("games", "", 					"FunctionAllGame");
 AddCommand("info", 	"loginkey",				"FunctionOwnAccountInfo");
 AddCommand("findbyid", 	"id",				"FunctionFindByIDAccountInfo");
-AddCommand("findbyname", "name,loginkey", 	"FunctionFindByNameAccountInfo");
+AddCommand("findbyname", "name", 			"FunctionFindByNameAccountInfo");
+
+//
+AddCommand("game", 	"id", 					"FunctionGameInfo");
+AddCommand("games", "", 					"FunctionAllGame");
 
 //Friend system
 AddCommand("Fsend", "id,loginkey",			"FunctionSendFriendRequest");
@@ -23,8 +26,6 @@ AddCommand("Fdelete", "id,loginkey",		"FunctionDeleteFriendRequest");
 AddCommand("Fpendings", "loginkey",			"FunctionGetPendingRequests");
 AddCommand("friends", "loginkey",			"FunctionGetFriends");
 
-//Rewarding system
-AddCommand("earnexp", "loginkey,earn",		"FunctionEarnExp");
 
 CheckRequestStatements();
 RunCommand();
@@ -84,7 +85,7 @@ function IsValidKey($table, $type)
 {
 	$key = $type . "key";
 	if($type == "api")
-		if(IsMasterKey($_GET[$key]))
+		if(IsMasterKey($_GET[$key] && IsAuthType()))
 			return true;
 
 	$ret = GetRecordFromDB($table, $key, $_GET[$key]);
@@ -141,6 +142,14 @@ function RunCommand()
 	$func();
 }
 
+function IsAuthType()
+{
+	$type = $_GET["type"];
+	if($type == "login" || $type == "register")
+		return true;
+	return false;
+}
+
 function IsMD5Hash($string)
 {
 	if(strlen($string) == 32)
@@ -152,7 +161,7 @@ function CreateOutPutString($array)
 {
 	$outputstring = "";
 	foreach($array as $str)
-		if(!IsMD5Hash($str))
+		if(!IsMD5Hash($str) && !isREGEXCorrectEmail($str))
 			$outputstring .= "&" . $str;
 	
 	return substr($outputstring,1);
@@ -185,6 +194,15 @@ function IsValidUserID($id)
 		return true;
 	return false;
 }
+
+function GetInviter()
+{
+	if(!isSet($_GET["ref"]))
+		return "-1";
+	return $_GET["ref"];
+}
+
+// Subs for Friend
 
 function ClearConnection($from, $to)
 {
@@ -242,24 +260,30 @@ function FunctionLogin()
 function FunctionRegister()
 {
 	$un = $_GET['un'];
+	$ig = $_GET['ig'];
+	$email = $_GET['email'];
+	if(!isREGEXCorrectName($un)) Error("701");
+	if(!isREGEXCorrectName($ig)) Error("702");
+	if(!isREGEXCorrectEmail($email)) Error("703");
+
 	$untaken = GetRecordFromDBwithSQL("SELECT * FROM users WHERE username = '$un'");
 	if(count($untaken) > 0)
-		Error("71");
-	
-	$ig = $_GET['ig'];
+		Error("711");
+
 	$igtaken = GetRecordFromDBwithSQL("SELECT * FROM users WHERE name = '$ig'");
 	if(count($igtaken) > 0)
-		Error("72");
+		Error("712");
 	
-	$email = $_GET['email'];
 	$emailtaken = GetRecordFromDBwithSQL("SELECT * FROM users WHERE email = '$email'");
 	if(count($emailtaken) > 0)
-		Error("73");
+		Error("713");
 
 	$MD5Pass = md5($_GET['ps']);
 	
+	$inviter=GetInviter();
+
 	$rows = array("name", "username", "password", "email", "invited");
-	$values = array("'$ig'", "'$un'", "'$MD5Pass'" , "'$email'", "0");
+	$values = array("'$ig'", "'$un'", "'$MD5Pass'" , "'$email'", "'$inviter'");
 	
 	InsertValue("users", $rows, $values);
 	
@@ -353,23 +377,5 @@ function FunctionGetFriends()
 {
 	$array = GetAllFriendConnectionWithConditions(GetIDbyKey(), 1);
 	WriteOutAndCheckResoult(CreateOutPutString($array));
-}
-
-function FunctionEarnExp()
-{
-	if(!is_numeric($_GET['earn']))
-		Error("2");
-
-	if($_GET['earn'] < 1 || $_GET['earn'] > 4)
-		Error("2");
-	
-	$expgained = $GLOBALS['expgain'][$_GET['earn'] - 1];
-	$lgkey = $_GET["loginkey"];
-	
-	$sql = "UPDATE users SET exp = exp + '$expgained' WHERE loginkey = '$lgkey'";
-	DoSQL($sql);
-	
-	$user = GetRecordFromDB("users", "loginkey", $lgkey);
-	WriteOutAndCheckResoult($user['exp']);
 }
 ?>

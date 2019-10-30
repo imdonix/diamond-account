@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="google-site-verification" content="0YQs3GBe7rJJepI2zqRXcEQUfRaUplLMOKmxqR6CjcQ" />
     <link href="/web/style.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -19,6 +18,10 @@
             <h1 class="wv-heading--title">
                Diamond account
             </h1>
+         </div>
+         <div class="header-title">
+            <h4>invited by</h4>
+            <h3>Faszkalap</h3>
          </div>
       </div>
       <div class="row">
@@ -39,16 +42,6 @@
                   </div>
                   <div class="text-center ">
                      <button type="submit" class=" btn btn-block send-button tx-tfm">Sing up</button>
-                  </div>
-                  <div class="col-md-12 ">
-                     <div class="login-or">
-                        <hr class="hr-or">
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <a class="btn btn-block g-button" href="#">
-                     <i class="fa fa-google"></i> Sign up with Google
-                     </a>
                   </div>
                </form>
             </div>
