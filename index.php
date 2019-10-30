@@ -1,3 +1,13 @@
+<?php
+   if(isSet($_GET['ref']))
+   {
+   include 'lib/database.php';
+   $req=GetRecordFromDB("users", "id", $_GET["ref"]);
+   if(count($req) > 0)
+      $ref_name= $req['name'];
+   }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +28,10 @@
             <h1 class="wv-heading--title">
                Diamond account
             </h1>
-         </div>
-         <div class="header-title">
-            <h4>invited by</h4>
-            <h3>Faszkalap</h3>
+            <?php
+               if (isSet($ref_name))
+                  include 'web/invited.php';
+            ?>
          </div>
       </div>
       <div class="row">

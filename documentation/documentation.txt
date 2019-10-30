@@ -15,13 +15,13 @@ Anyone can use our account system for their indie game project. Write us a mail 
 
 --Database tables --
 
--User [ id | name | username | password | email | lastgame | invited | loginkey ]
+-users [ id | name | username | password | email | lastgame | invited | loginkey ]
 * name, username: engabc & number [varchar 20]
 * pass: hash MD5 [varchar 32]
 * lastgame: that game what this player played, set when login (game/id) (-1 null)
 * invited : that player who invited to play (player/id) (-1 null)
--Game [ id | name | apikey | reqcounter | verison | filelink | ismobilegame ]
--Friends [ id | pfrom(id) | pto(id) | accepted(bool) ]
+-games [ id | name | apikey | reqcounter | verison | filelink | ismobilegame ]
+-friends [ id | pfrom(id) | pto(id) | accepted(bool) ]
 
 
 -- MasterKey (only for login/register)--
