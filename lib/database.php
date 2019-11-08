@@ -75,7 +75,7 @@ function InsertValue($table, $rows, $values)
 {
 	Check();
 	$sql = "INSERT INTO $table (" . CreateStringFromArray($rows) . ") VALUES (" . CreateStringFromArray($values) . ");";
-	mysqli_query($GLOBALS['database'], $sql);
+	return mysqli_query($GLOBALS['database'], $sql);
 }
 
 function DeleteValue($table, $id, $value)

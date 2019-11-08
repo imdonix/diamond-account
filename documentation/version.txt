@@ -1,0 +1,4 @@
+-- 0.5 --
++ Added autoinc to Database SQL template
++ Multiple user search added to findByID
+* findByID parms changed: id => ids

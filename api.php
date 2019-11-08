@@ -2,7 +2,10 @@
 include 'lib/database.php';
 include 'lib/regexs.php';
 
-$GLOBALS['API_version'] = "0.4";
+const OUTPUT_DELIMITER = '&';
+const SUB_OUTPUT_DELIMITER = '@';
+
+$GLOBALS['API_version'] = "0.5";
 $GLOBALS['commands'] = array();
 $GLOBALS['expgain'] = array(10, 35, 50, 100);
 $GLOBALS['masterkey'] = "e268443e43d93dab7ebef303bbe9642f";
@@ -12,10 +15,10 @@ AddCommand("login", "un,ps", 				"FunctionLogin");
 AddCommand("register", "un,ig,ps,email", 	"FunctionRegister"); //optional invited
 AddCommand("api", 	"", 					"FunctionAPI");
 AddCommand("info", 	"loginkey",				"FunctionOwnAccountInfo");
-AddCommand("findbyid", 	"id",				"FunctionFindByIDAccountInfo");
+AddCommand("findbyid", 	"ids",				"FunctionFindByIDSAccountsInfo");
 AddCommand("findbyname", "name", 			"FunctionFindByNameAccountInfo");
 
-//
+//Games
 AddCommand("game", 	"id", 					"FunctionGameInfo");
 AddCommand("games", "", 					"FunctionAllGame");
 
@@ -162,7 +165,7 @@ function CreateOutPutString($array)
 	$outputstring = "";
 	foreach($array as $str)
 		if(!IsMD5Hash($str) && !isREGEXCorrectEmail($str))
-			$outputstring .= "&" . $str;
+			$outputstring .= OUTPUT_DELIMITER . $str;
 	
 	return substr($outputstring,1);
 }
@@ -200,6 +203,15 @@ function GetInviter()
 	if(!isSet($_GET["ref"]))
 		return "-1";
 	return $_GET["ref"];
+}
+
+function IsEachElementUnique($arr)
+{
+	$uniq = array();
+	foreach($arr as $element)
+		if(!in_array($element, $uniq))
+			array_push($uniq, $element);
+	return count($uniq) == count($arr);
 }
 
 // Subs for Friend
@@ -285,7 +297,8 @@ function FunctionRegister()
 	$rows = array("name", "username", "password", "email", "invited");
 	$values = array("'$ig'", "'$un'", "'$MD5Pass'" , "'$email'", "'$inviter'");
 	
-	InsertValue("users", $rows, $values);
+	if(!InsertValue("users", $rows, $values))
+		Error("0");
 	
 	$_GET["ps"] = $MD5Pass;
 	FunctionLogin();
@@ -318,9 +331,21 @@ function FunctionOwnAccountInfo()
 	WriteOutAndCheckResoult($output);
 }
 
-function FunctionFindByIDAccountInfo()
-{	
-	$output = CreateOutPutString(GetRecordFromDB("users", "id", $_GET["id"]));
+function FunctionFindByIDSAccountsInfo()
+{
+	$ids = explode("|", $_GET['ids']);
+	if(!IsEachElementUnique($ids))
+		Error("2");
+
+	$sql = "SELECT * FROM users WHERE ";
+	foreach($ids as $id)
+		$sql .= "id = $id" . (end($ids) != $id  ? " OR " : "");
+
+	$res = GetRecordFromDBwithSQL($sql);
+	$output = "";
+	foreach($res as $user)
+		$output .= CreateOutPutString($user) . (end($res) != $user  ? SUB_OUTPUT_DELIMITER : "");
+
 	WriteOutAndCheckResoult($output);
 }
 

@@ -46,3 +46,15 @@ ALTER TABLE `games`
 
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
+
+-- Auto Inc --
+
+ALTER TABLE `friends`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `games`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
