@@ -2,3 +2,6 @@
 + Added autoinc to Database SQL template
 + Multiple user search added to findByID
 * findByID parms changed: id => ids
+-- 0.5.1 --
++ Get Friends now show your all contact
+- Get Pendings removed

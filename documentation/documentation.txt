@@ -69,6 +69,8 @@ https://diamond-account.herokuapp.com/api.php
 [ <accespoint with the arguments> ]
 Input: <Input fileds>
 Out: <Output fild>
+Def: <text> = explaind
+Description: some info
 
  --- Core ---
 
@@ -118,10 +120,42 @@ Out:(id)&(name)&(username)&(lastgame)&(invited) [1&test1&test1&4&2]
 -- Get all game --
 [/api.php?type=games&apikey=(apikey) ]
 Input: APIkey
-Out: [text/] (game/id)&(game/id)&(game/id)
+Out: (game/id)&(game/id)&(game/id)
 
 
 -- Game info --
 [/api.php?type=game&id=(id)&apikey=(apikey) ]
 Input: gameid, APIkey
-Out: [text/] (game/id)&(game/name)&(game/reqcounter)
+Out: (game/id)&(game/name)&(game/reqcounter)
+
+ --- Friends ----
+
+-- Get friends --
+[/api.php?type=friends&loginkey=(loginkey)&apikey=(apikey) ]
+Input: Loginkey, APIkey
+Out: friend_connection1&friend_connection2 [1@1@2&2@2@4] 
+Def: friend_connection = (con_id)@(con_from)@(con_to)
+
+-- Send friend request --
+[/api.php?type=Fsend&id=(id)&loginkey=(loginkey)&apikey=(apikey) ]
+Input: ID(User), Loginkey, APIkey
+Out: Succes
+
+-- Accept friend request --
+[ /api.php?type=Faccept&id=(id)&loginkey=(loginkey)&apikey=(apikey) ]
+Input: ID(friend_connection), Loginkey, APIkey
+Out: Succes
+
+-- Delete friend contact --
+[ /api.php?type=Faccept&id=(id)&loginkey=(loginkey)&apikey=(apikey) ]
+Input: ID(friends/ID), Loginkey, APIkey
+Out: Succes
+Description:
+You can delete a frind or delete a frined request.
+
+
+
+
+
+
+

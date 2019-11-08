@@ -5,7 +5,7 @@ include 'lib/regexs.php';
 const OUTPUT_DELIMITER = '&';
 const SUB_OUTPUT_DELIMITER = '@';
 
-$GLOBALS['API_version'] = "0.5";
+$GLOBALS['API_version'] = "0.5.1";
 $GLOBALS['commands'] = array();
 $GLOBALS['expgain'] = array(10, 35, 50, 100);
 $GLOBALS['masterkey'] = "e268443e43d93dab7ebef303bbe9642f";
@@ -25,8 +25,7 @@ AddCommand("games", "", 					"FunctionAllGame");
 //Friend system
 AddCommand("Fsend", "id,loginkey",			"FunctionSendFriendRequest");
 AddCommand("Faccept", "id,loginkey",		"FunctionAcceptFriendRequest");
-AddCommand("Fdelete", "id,loginkey",		"FunctionDeleteFriendRequest");
-AddCommand("Fpendings", "loginkey",			"FunctionGetPendingRequests");
+AddCommand("Fdelete", "id,loginkey",		"FunctionDeleteFriendRequest");;
 AddCommand("friends", "loginkey",			"FunctionGetFriends");
 
 
@@ -392,15 +391,9 @@ function FunctionDeleteFriendRequest()
 	WriteOutAndCheckResoult("Succes");
 }
 
-function FunctionGetPendingRequests()
-{
-	$array = GetAllFriendConnectionWithConditions(GetIDbyKey(), 0);
-	WriteOutAndCheckResoult(CreateOutPutString($array));
-}
-
 function FunctionGetFriends()
 {
-	$array = GetAllFriendConnectionWithConditions(GetIDbyKey(), 1);
+	$array = GetAllFriendConnection(GetIDbyKey());
 	WriteOutAndCheckResoult(CreateOutPutString($array));
 }
 ?>
