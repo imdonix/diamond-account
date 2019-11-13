@@ -1,3 +1,19 @@
+-- 0.1 --
++ Core added
++ login, register added
++ apiinfo added
+-- 0.2 --
++ Game System added
++ Friend System added
++ masterkey is added
++ findaccountbyname is added
+-- 0.3 --
++ Heroku support added
+-- 0.4 --
+- evry email removed from output
++ register reffer support added
+* loginkey removed from findaccountbyname
+* login/register is authored by the masterkey
 -- 0.5 --
 + Added autoinc to Database SQL template
 + Multiple user search added to findByID
