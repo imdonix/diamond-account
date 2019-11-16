@@ -126,15 +126,15 @@ Out: (game/id)&(game/id)&(game/id)
 -- Game info --
 [/api.php?type=game&id=(id)&apikey=(apikey) ]
 Input: gameid, APIkey
-Out: (game/id)&(game/name)&(game/reqcounter)
+Out: (game/id)&(game/name)&(game/reqcounter)&(game/version)&(game/link)&&(game/ismobilegame)
 
  --- Friends ----
 
 -- Get friends --
 [/api.php?type=friends&loginkey=(loginkey)&apikey=(apikey) ]
 Input: Loginkey, APIkey
-Out: friend_connection1&friend_connection2 [1@1@2&2@2@4] 
-Def: friend_connection = (con_id)@(con_from)@(con_to)
+Out: friend_connection1&friend_connection2 [1@1@2@1&2@2@4@0] 
+Def: friend_connection = (con_id)@(con_from)@(con_to)@(con_accepted)
 
 -- Send friend request --
 [/api.php?type=Fsend&id=(id)&loginkey=(loginkey)&apikey=(apikey) ]
