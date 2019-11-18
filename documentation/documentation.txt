@@ -120,13 +120,15 @@ Out:(id)&(name)&(username)&(lastgame)&(invited) [1&test1&test1&4&2]
 -- Get all game --
 [/api.php?type=games&apikey=(apikey) ]
 Input: APIkey
-Out: (game/id)&(game/id)&(game/id)
-
+Out: (game1)&(game2)&(game3)...
+Def: Game = (game/id)@(game/name)@(game/reqcounter)@(game/version)@(game/link)@(game/ismobilegame)...
+Description: Return all game info.
 
 -- Game info --
-[/api.php?type=game&id=(id)&apikey=(apikey) ]
-Input: gameid, APIkey
-Out: (game/id)&(game/name)&(game/reqcounter)&(game/version)&(game/link)&&(game/ismobilegame)
+[/api.php?type=game&apikey=(apikey) ]
+Input: APIkey
+Out: (game/id)&(game/name)&(game/reqcounter)&(game/version)&(game/link)&(game/ismobilegame)
+Description: Return the requester game info.
 
  --- Friends ----
 

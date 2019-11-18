@@ -19,7 +19,7 @@ AddCommand("findbyid", 	"ids",				"FunctionFindByIDSAccountsInfo");
 AddCommand("findbyname", "name", 			"FunctionFindByNameAccountInfo");
 
 //Games
-AddCommand("game", 	"id", 					"FunctionGameInfo");
+AddCommand("game", 	"", 					"FunctionGameInfo");
 AddCommand("games", "", 					"FunctionAllGame");
 
 //Friend system
@@ -94,7 +94,9 @@ function IsValidKey($table, $type)
 	if(empty($ret))
 		return false;
 	
-	IncreaseByOneInDB($table, "reqcounter", $key, $_GET[$key]);
+	if($_GET['type'] == "login")
+		IncreaseByOneInDB($table, "reqcounter", $key, $_GET[$key]);
+
 	return true;	
 }
 
@@ -167,6 +169,11 @@ function CreateOutPutString($array)
 			$outputstring .= OUTPUT_DELIMITER . $str;
 	
 	return substr($outputstring,1);
+}
+
+function CreateSubOutPutString($array)
+{	
+	return str_replace(OUTPUT_DELIMITER, SUB_OUTPUT_DELIMITER, CreateOutPutString($array));
 }
 
 function WriteOutAndCheckResoult($string)
@@ -310,16 +317,16 @@ function FunctionAPI()
 
 function FunctionGameInfo()
 {	
-	$output = CreateOutPutString(GetRecordFromDB("games", "id", $_GET["id"]));
+	$output = CreateOutPutString(GetRecordFromDB("games", "apikey", $_GET["apikey"]));
 	WriteOutAndCheckResoult($output);
 }
 
 function FunctionAllGame()
 {
 	$output = array();
-	$input = GetRecordFromDBwithSQL("SELECT id FROM games");
+	$input = GetRecordFromDBwithSQL("SELECT * FROM games");
 	foreach($input as $row)
-		array_push($output, $row['id']);
+		array_push($output, CreateSubOutPutString($row));
 		
 	WriteOutAndCheckResoult(CreateOutPutString($output));
 }
@@ -341,11 +348,11 @@ function FunctionFindByIDSAccountsInfo()
 		$sql .= "id = $id" . (end($ids) != $id  ? " OR " : "");
 
 	$res = GetRecordFromDBwithSQL($sql);
-	$output = "";
+	$output = array();
 	foreach($res as $user)
-		$output .= CreateOutPutString($user) . (end($res) != $user  ? SUB_OUTPUT_DELIMITER : "");
+		array_push($output, CreateSubOutPutString($user));
 
-	WriteOutAndCheckResoult($output);
+	WriteOutAndCheckResoult(CreateOutPutString($output));
 }
 
 function FunctionFindByNameAccountInfo()

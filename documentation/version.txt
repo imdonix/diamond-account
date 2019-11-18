@@ -21,3 +21,9 @@
 -- 0.5.1 --
 + Get Friends now show your all contact
 - Get Pendings removed
+-- 0.6 --
+* getplayerbyid now return in the correct format
+* Game interface changed:
+    * game => Return the requester game info
+    * games => Return all game info
++ reqcount increase only when login
