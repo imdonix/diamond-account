@@ -5,9 +5,8 @@ include 'lib/regexs.php';
 const OUTPUT_DELIMITER = '&';
 const SUB_OUTPUT_DELIMITER = '@';
 
-$GLOBALS['API_version'] = "0.5.1";
+$GLOBALS['API_version'] = "0.6";
 $GLOBALS['commands'] = array();
-$GLOBALS['expgain'] = array(10, 35, 50, 100);
 $GLOBALS['masterkey'] = "e268443e43d93dab7ebef303bbe9642f";
 
 //Core
