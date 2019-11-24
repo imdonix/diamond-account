@@ -154,10 +154,3 @@ Input: ID(friends/ID), Loginkey, APIkey
 Out: Succes
 Description:
 You can delete a frind or delete a frined request.
-
-
-
-
-
-
-
