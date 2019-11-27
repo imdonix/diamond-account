@@ -11,7 +11,7 @@ $GLOBALS['masterkey'] = "e268443e43d93dab7ebef303bbe9642f";
 
 //Core
 AddCommand("login", "un,ps", 				"FunctionLogin");
-AddCommand("register", "un,ig,ps,email", 	"FunctionRegister"); //optional invited
+AddCommand("register", "un,ig,ps,email", 	"FunctionRegister"); //optional parm: inv
 AddCommand("api", 	"", 					"FunctionAPI");
 AddCommand("info", 	"loginkey",				"FunctionOwnAccountInfo");
 AddCommand("findbyid", 	"ids",				"FunctionFindByIDSAccountsInfo");
@@ -27,11 +27,11 @@ AddCommand("Faccept", "id,loginkey",		"FunctionAcceptFriendRequest");
 AddCommand("Fdelete", "id,loginkey",		"FunctionDeleteFriendRequest");;
 AddCommand("friends", "loginkey",			"FunctionGetFriends");
 
-
+//Run command
 CheckRequestStatements();
 RunCommand();
 
-//Setup
+//Methods
 function Error($id)
 {
 	die("E$id");
