@@ -2,10 +2,10 @@
    header("Access-Control-Allow-Origin: *");
    if(isSet($_GET['ref']))
    {
-   include 'lib/database.php';
-   $req=GetRecordFromDB("users", "id", $_GET["ref"]);
-   if(count($req) > 0)
-      $ref_name= $req['name'];
+      include 'lib/database.php';
+      $req=GetRecordFromDB("users", "id", $_GET["ref"]);
+      if(count($req) > 0)
+         $ref_name= $req['name'];
    }
 ?>
 

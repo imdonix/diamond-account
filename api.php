@@ -141,8 +141,7 @@ function HasAllReq($input)
 
 function RunCommand()
 {
-	$func = GetAPartFromCommand(GetTheCommand($_GET["type"]),2);
-	$func();
+	GetAPartFromCommand(GetTheCommand($_GET["type"]),2)();
 }
 
 function IsAuthType()
